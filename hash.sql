@@ -1,0 +1,8 @@
+﻿create or replace PACKAGE HASH AS 
+
+
+    /* Final Function */
+    --FUNCTION SHA1(X IN RAW) RETURN RAW;
+    FUNCTION SHA256(X IN VARCHAR2) RETURN VARCHAR2;
+
+END HASH;
