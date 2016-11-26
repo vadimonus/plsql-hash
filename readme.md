@@ -1,22 +1,20 @@
-SHA1 / SHA2-256 PL/SQL library
-==============================
+SHA-1 / SHA-2 PL/SQL library
+============================
 
 Descritpion
 -----------
-This package allows to calculate SHA1 and SHA-256 hashes. It's written in pure 
+This package allows to calculate SHA-1 and SHA-2 hashes. It's written in pure 
 PL/SQL and does not require access to DBMS_CRYPTO and external Java functions.
 
 Author
 ------
 This library is written by Vadim Dvorovenko <Vadimon@mail.ru>.
 
-Code is based on PL/SQL SHA-256 code written by Steve Jang <cruiserx@hanmail.net>.
-                                                     
 License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2014 Vadim Dvorovenko
+Copyright (c) 2014-2016 Vadim Dvorovenko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -38,10 +36,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 
 Limitations
 -----------
-Currently, due to RAW and VARCHAR2 restrictions, hash cannot be calculated for
-data larger than 32767 bytes. Current version does not support LOB's. 
+For RAW versions of functions, hash cannot be calculated for data larger than 16384 bytes. 
+For larger data you can use BLOB versions.
 
-Currenctly all calculations are performed using NUMBER datatype, code is very 
+Currently all calculations are performed using NUMBER datatype, code is very 
 inecfficent.
 
 Examples
@@ -49,10 +47,10 @@ Examples
 
 ```
 BEGIN
-  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH.SHA1(UTL_RAW.CAST_TO_RAW(''))));
-  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH.SHA1(UTL_RAW.CAST_TO_RAW('The quick brown fox jumps over the lazy dog'))));
-  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH.SHA256(UTL_RAW.CAST_TO_RAW(''))));
-  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH.SHA256(UTL_RAW.CAST_TO_RAW('The quick brown fox jumps over the lazy dog'))));
+  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH_UTIL_PKG.SHA1(UTL_RAW.CAST_TO_RAW(''))));
+  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH_UTIL_PKG.SHA1(UTL_RAW.CAST_TO_RAW('The quick brown fox jumps over the lazy dog'))));
+  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH_UTIL_PKG.SHA256(UTL_RAW.CAST_TO_RAW(''))));
+  DBMS_OUTPUT.PUT_LINE(RAWTOHEX(HASH_UTIL_PKG.SHA256(UTL_RAW.CAST_TO_RAW('The quick brown fox jumps over the lazy dog'))));
 END;
 ```
 results in
