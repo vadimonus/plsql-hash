@@ -1,4 +1,4 @@
-create or replace package body hash_pkg
+create or replace package body hash_util_pkg
 as
   
   type ta_number is table of number index by binary_integer;
@@ -1276,7 +1276,7 @@ as
   begin
 
     dbms_lob.createtemporary(l_blob, true);
-    l_raw := sys.utl_raw.cast_to_raw('The quick brown fox jumps over the lazy dog' || chr(10) || chr(13));
+    l_raw := sys.utl_raw.cast_to_raw('The quick brown fox jumps over the lazy dog' || chr(13) || chr(10));
     for i in 1..1000 loop
       dbms_lob.writeappend(l_blob, sys.utl_raw.length(l_raw), l_raw);
     end loop;
@@ -1291,7 +1291,7 @@ as
     else
       dbms_output.put_line('SHA-1. Test 2 failed');
     end if;
-    if lower(rawtohex(sha1(l_blob))) = '0dd637632ff527f8200383cd0f4c595df8a78433' then
+    if lower(rawtohex(sha1(l_blob))) = '65d489cb70cae1cd7661a3043dc6ee51e41efb01' then
       dbms_output.put_line('SHA-1. Test 3 passed');
     else
       dbms_output.put_line('SHA-1. Test 3 failed');
@@ -1307,7 +1307,7 @@ as
     else
       dbms_output.put_line('SHA-224. Test 2 failed');
     end if;
-    if lower(rawtohex(sha224(l_blob))) = 'ec4474f8b2d770d31242fd6e8d50e3ff14c186b277f48685d44a5029' then
+    if lower(rawtohex(sha224(l_blob))) = 'daa4ac7e3d679550368d98cbf59e0805fbccbdd9c88b41c879a3ad6c' then
       dbms_output.put_line('SHA-224. Test 3 passed');
     else
       dbms_output.put_line('SHA-224. Test 3 failed');
@@ -1323,7 +1323,7 @@ as
     else
       dbms_output.put_line('SHA-256. Test 2 failed');
     end if;
-    if lower(rawtohex(sha256(l_blob))) = '40f5982c73ef9d238258d5e31b38d95f8bed41475ad02315735f0a00d3584496' then
+    if lower(rawtohex(sha256(l_blob))) = '6a8fd57827ee3c24359730e5c64b6badc41da43758990964ff1b20e5d62ea5f0' then
       dbms_output.put_line('SHA-256. Test 3 passed');
     else
       dbms_output.put_line('SHA-256. Test 3 failed');
@@ -1339,7 +1339,7 @@ as
     else
       dbms_output.put_line('SHA-384. Test 2 failed');
     end if;
-    if lower(rawtohex(sha384(l_blob))) = '5b00933c972da7c98d70c3bf7897c4c551700f9166aac81eb907dbc1c69329e8f7387dd3cd2fccaf1588d1288550e843' then
+    if lower(rawtohex(sha384(l_blob))) = '0f35cb80adadaede011868e4cb79d760ca5bc80a7e84075b1b3e703ca12cc13366bd60b42e699e2d3d1744a617ab50da' then
       dbms_output.put_line('SHA-384. Test 3 passed');
     else
       dbms_output.put_line('SHA-384. Test 3 failed');
@@ -1355,7 +1355,7 @@ as
     else
       dbms_output.put_line('SHA-512. Test 2 failed');
     end if;
-    if lower(rawtohex(sha512(l_blob))) = '367dcb70764ede7c2b982ac139d22655a006b036bb5976b8129378ea852f53a995e60d6e2f654e1174ac8b5d3e3bc85d9488e4b2bdf9a90d489f26aeb0ce8372' then
+    if lower(rawtohex(sha512(l_blob))) = '3211cc7c5868f4f14878f93ab5dc82a12d5e8b9dbdc65eb7c7793a368cc93fbb5d9c130333b87db538a1cf86911aa60e1da4248ab8c6bb5bc14d381f556b99f4' then
       dbms_output.put_line('SHA-512. Test 3 passed');
     else
       dbms_output.put_line('SHA-512. Test 3 failed');
@@ -1385,6 +1385,6 @@ as
 
   end unittest; 
   
-end hash_pkg;
+end hash_util_pkg;
 /
 
