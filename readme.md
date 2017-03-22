@@ -40,7 +40,7 @@ For RAW versions of functions, hash cannot be calculated for data larger than 16
 For larger data you can use BLOB versions.
 
 Currently all calculations are performed using NUMBER datatype, code is very 
-inecfficent.
+inefficent.
 
 Examples
 --------
